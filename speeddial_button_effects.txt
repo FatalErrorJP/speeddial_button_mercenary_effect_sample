@@ -1,0 +1,49 @@
+speeddial_button_mercenary_effect = {
+	potential = {
+		is_scope_type = country
+		exists = from
+
+		any_relation = {
+			is_country_type = enclave_mercenary
+			has_country_flag = mercenary_enclave_country
+			has_communications = from
+		}
+	}
+	allow = {
+		####################################
+		# ここから追加コード
+		####################################
+		any_relation = {
+			is_country_type = enclave_mercenary
+			has_country_flag = mercenary_enclave_country
+			has_communications = from
+			trust = { who = from value > 0 }
+		}
+		####################################
+		# ここまで追加コード
+		####################################
+	}
+	effect = {
+		custom_tooltip = speeddial_button_contact_mercenary_tooltip
+		hidden_effect = {
+			random_relation = {
+				limit = {
+					is_country_type = enclave_mercenary
+					has_country_flag = mercenary_enclave_country
+					has_communications = from
+					####################################
+					# ここから追加コード
+					####################################
+					trust = { who = from value > 0 }
+					####################################
+					# ここまで追加コード
+					####################################
+				}
+				save_event_target_as = target_country
+			}
+			from = {
+				country_event = { id = enclave.200 scopes = { from = event_target:target_country } }
+			}
+		}
+	}
+}
